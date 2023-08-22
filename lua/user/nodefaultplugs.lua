@@ -32,7 +32,6 @@ local disable_pluings = {
   'did_install_default_menus',
   'did_install_syntax_menu',
   'did_indent_on',
-  'did_load_filetypes',
   'loaded_rrhelper',
   'loaded_matchit',
   'loaded_matchparen',
