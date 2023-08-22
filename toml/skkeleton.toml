@@ -1,0 +1,76 @@
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+on_map = { ic = '<Plug>(skkeleton-toggle)' }
+depends = ['ddc.vim']
+hook_add = '''
+nmap <C-j> i<Plug>(skkeleton-toggle)
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
+'''
+hook_post_source = '''
+" let g:skkeleton#debug = v:true
+call skkeleton#config({
+      \ 'eggLikeNewline': v:true,
+      \ 'registerConvertResult': v:true,
+      \ 'globalDictionaries': [["~/.cache/dein/repos/github.com/skk-dev/dict/SKK-JISYO.L", "euc-jp"]]
+      \ })
+call skkeleton#register_kanatable('rom', {
+      \ 'jj': 'escape',
+      \ '~': ['〜', ''],
+      \ "z\<Space>": ["\u3000", ''],
+      \ })
+
+" skkeleton_pre
+autocmd User skkeleton-enable-pre call s:skkeleton_pre()
+function! s:skkeleton_pre() abort
+  " Overwrite sources
+  let s:prev_buffer_config = ddc#custom#get_buffer()
+  call ddc#custom#patch_buffer('sources', ['skkeleton'])
+endfunction
+
+" skkeleton_post
+autocmd User skkeleton-disable-pre call s:skkeleton_post()
+function! s:skkeleton_post() abort
+  " Restore sources
+  call ddc#custom#set_buffer(s:prev_buffer_config)
+endfunction
+
+" ddc config
+call ddc#custom#patch_global('sourceOptions', {
+    \ 'skkeleton': {
+    \   'mark': 'skk',
+    \   'matchers': ['skkeleton'],
+    \   'sorters': [],
+    \   'minAutoCompleteLength': 2,
+    \ }})
+'''
+
+#[[plugins]]
+#repo = 'shg-eo/skkeleton-azik'
+#on_source = 'skkeleton'
+
+[[plugins]]
+repo = 'Matts966/skk-vconv.vim'
+on_source = ['skkeleton']
+
+[[plugins]]
+repo = 'delphinus/skkeleton_indicator.nvim'
+on_source = ['skkeleton']
+lua_source = '''
+require'skkeleton_indicator'.setup{
+  eijiHlName = "Grey",
+  hiraHlName = "Grey",
+  kataHlName = "Grey",
+  hankataHlName = "Grey",
+  zenkakuHlName = "Grey",
+  abbrevHlName = "Grey",
+  eijiText = "A",
+  hiraText = "あ",
+  kataText = "ア",
+  hankataText = "ｱ",
+  fadeOutMs = 800,
+}
+'''
+
+[[plugins]]
+repo = 'skk-dev/dict'
