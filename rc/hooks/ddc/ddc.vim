@@ -33,7 +33,7 @@ endfunction
 " }}}
 
 " hook_source {{{
-call ddc#custom#load_config(expand('$HOOKS_DIR/ddc.ts'))
+call ddc#custom#load_config(expand('$HOOKS_DIR/ddc/ddc.ts'))
 call ddc#custom#patch_global('sourceParams', #{
       \   nvim-lsp: #{
       \     snippetEngine: denops#callback#register({
@@ -58,7 +58,7 @@ inoremap <expr> <S-Tab>
       \ '<TAB>'
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1, "loop")<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1, "loop")<CR>
-inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <expr> <C-y> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
 inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <expr> <Home> pum#visible() ? '<Cmd>call pum#map#insert_relative(-9999, "ignore")<CR>' : '<Home>'
 inoremap <expr> <End> pum#visible() ? '<Cmd>call pum#map#insert_relative(+9999, "ignore")<CR>' : '<End>'

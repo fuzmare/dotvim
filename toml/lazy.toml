@@ -13,8 +13,8 @@ lua_source = '''
 require('lualine').setup {
   options = {
     theme = 'antibalus',
-    component_separators = { left = ' ', right = ' '},
-    section_separators = { left = ' ', right = ' '},
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
   }
 }
 '''
@@ -74,10 +74,6 @@ hooks_file = '$HOOKS_DIR/fern-preview.vim'
 repo = 'karb94/neoscroll.nvim'
 on_event = 'WinScrolled'
 on_lua = 'neoscroll'
-hook_add = '''
-nnoremap n n<cmd> lua require('neoscroll').zz(250)<CR>
-nnoremap N N<cmd> lua require('neoscroll').zz(250)<CR>
-'''
 hooks_file = '$HOOKS_DIR/neoscroll.lua'
 # }}}
 # lexima {{{
@@ -133,10 +129,16 @@ on_event = ['BufRead']
 hooks_file = '$HOOKS_DIR/gitsigns.lua'
 # }}}
 # satelite {{{
+#[[plugins]]
+#repo = 'lewis6991/satellite.nvim'
+#on_event = ['BufRead']
+#hooks_file = '$HOOKS_DIR/satelite.lua'
+# }}}
+# dstein64/nvim-scrollview {{{
 [[plugins]]
-repo = 'lewis6991/satellite.nvim'
-on_event = ['BufRead']
-hooks_file = '$HOOKS_DIR/satelite.lua'
+repo = 'dstein64/nvim-scrollview'
+on_event = 'BufRead'
+hooks_file = '$HOOKS_DIR/scrollview.lua'
 # }}}
 # insx {{{
 [[plugins]]
@@ -167,7 +169,12 @@ repo = 'Shougo/deol.nvim'
 depends = ['ddc.vim']
 on_cmd = 'Deol'
 hook_add = '''
-nnoremap <C-]> <cmd>execute 'Deol -toggle -split=floating -winheight=' . float2nr(&lines*0.9) . ' -winwidth=' . float2nr(&columns*0.9) . ' -winrow=' . float2nr(&lines*0.05) . ' -wincol=' . float2nr(&columns*0.05)<cr>
+nnoremap <C-]> <cmd>execute 
+\ 'Deol -toggle -split=floating
+\ -winheight=' . float2nr(&lines*0.9) . '
+\ -winwidth=' . float2nr(&columns*0.9) . '
+\ -winrow=' . float2nr(&lines*0.05) . '
+\ -wincol=' . float2nr(&columns*0.05)<cr>
 tnoremap <C-]> <C-\><C-n>
 '''
 hook_source = '''
@@ -197,6 +204,17 @@ let g:terminal_color_15 = '#e6e6e6'
 repo = 'lambdalisue/suda.vim'
 on_cmd = ['SudaRead', 'SudaWrite']
 # }}}
+# chrisbra/unicode.vim {{{
+[[plugins]]
+repo = 'chrisbra/unicode.vim'
+on_cmd = ['Digraphs', 'UnicodeSearch', 'UnicodeSearch!', 'UnicodeName', 'UnicodeTable', 'DownloadUnicode', 'UnicodeCache']
+# }}}
+# lukas-reineke/indent-blankline.nvim {{{
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+on_event = 'BufRead'
+hooks_file = '$HOOKS_DIR/indent-blankline.lua'
+# }}}
 # dependency plugins
 # nvim-web-devicons {{{
 [[plugins]]
@@ -206,17 +224,24 @@ lua_source = '''
 require'nvim-web-devicons'.setup()
 '''
 # }}}
-# plenary {{{
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-on_lua = 'plenary'
-# }}}
 # filetype plugins
 # vimtex {{{
 [[plugins]]
 repo = 'lervag/vimtex'
 on_ft = ['tex']
 hooks_file = '$HOOKS_DIR/vimtex.vim'
+# }}}
+# tani/vim-glance {{{
+[[plugins]]
+repo = 'tani/vim-glance'
+on_ft = 'markdown'
+hook_source = '''
+let g:glance#markdown_breaks = v:true
+let g:glance#markdown_html = v:true
+let g:glance#markdown_linkify = v:true
+let g:glance#markdown_plugins = ['https://esm.sh/markdown-it-mathjax3?bundle']
+let g:glance#stylesheet = '@import url("https://cdn.jsdelivr.net/npm/basscss@8.1.0/css/basscss.min.css");'
+'''
 # }}}
 # ime
 # for vime:transparent.nvim {{{

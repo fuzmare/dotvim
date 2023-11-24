@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
-hooks_file = '$HOOKS_DIR/ddu.vim'
+hooks_file = '$HOOKS_DIR/ddu/ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'
@@ -10,130 +10,125 @@ on_cmd = 'Ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
-hooks_file = '$HOOKS_DIR/ddu-ui-ff.vim'
+hooks_file = '$HOOKS_DIR/ddu/ddu-ui-ff.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-on_source = 'ddu.vim'
-hooks_file = '$HOOKS_DIR/ddu-ui-filer.vim'
+hooks_file = '$HOOKS_DIR/ddu/ddu-ui-filer.vim'
+
+# yuki-yano/ai-review.vim {{{
+[[plugins]]
+repo = 'yuki-yano/ai-review.vim'
+depends = 'ddu.vim'
+on_cmd = 'AiReview'
+hook_add = '''
+nnoremap <space>a <Cmd>AiReview<CR>
+vnoremap <space>a <Cmd>'<,'>AiReview<CR>
+'''
+hook_source = '''
+call vimrc#bw()
+call denops#request('vimrc', 'set_openai_key', [system('$HOME/.local/share/rtx/installs/bitwarden/latest/bin/bw get notes openai_api')])
+call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-1106-preview' } })
+call ddu#custom#patch_global({
+  \ 'kindOptions': {
+  \   'ai-review-request': {
+  \     'defaultAction': 'open',
+  \   },
+  \   'ai-review-log': {
+  \     'defaultAction': 'resume',
+  \   },
+  \ }
+  \ })
+'''
+# }}}
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_old'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_point'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-path_history'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-dummy'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-file_external'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-command_history'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'mikanIchinose/ddu-source-markdown'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'kamecha/ddu-source-jumplist'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-source-nvim-notify'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_relative'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_files'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignore_files'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignores'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Milly/ddu-filter-kensaku'
 depends = 'kensaku.vim'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-on_source = 'ddu.vim'
 
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'

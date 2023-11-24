@@ -3,10 +3,10 @@ import {
   ActionFlags,
   BaseConfig,
   Ddu,
-} from "https://deno.land/x/ddu_vim@v3.5.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.5.0/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.5.0/base/config.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
+} from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
+import { Denops, fn ,op } from "https://deno.land/x/ddu_vim@v3.6.0/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.6.0/base/config.ts";
+import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
 
@@ -14,6 +14,8 @@ type Params = Record<string, unknown>;
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
+    const columns = op.columns.get(args.denops);
+    const lines = op.lines.get(args.denops);
     args.setAlias("source", "file_rg", "file_external");
     args.setAlias("source", "file_git", "file_external");
     args.setAlias("filter", "matcher_ignore_current_buffer", "matcher_ignores");
@@ -73,11 +75,25 @@ export class Config extends BaseConfig {
           winWidth: 100,
         } as Partial<FfParams>,
         filer: {
-          previewFloating: true,
           sort: "filename",
           sortTreesFirst: true,
-          split: "no",
           toggle: true,
+          split: "floating",
+          floatingBorder: "single",
+          floatingTitle: "Filer",
+          floatingTitlePos: "center",
+          winHeight: "float2nr(&lines*0.8)-2",
+          winWidth: "float2nr(&columns*0.4)",
+          winRow: "float2nr(&lines*0.1)",
+          winCol: "float2nr(&columns*0.1)-1",
+          previewFloating: true,
+          previewFloatingBorder: "single",
+          previewFloatingTitle: "Preview",
+          previewFloatingTitlePos: "center",
+          previewHeight: "float2nr(&lines*0.8)-2",
+          previewWidth: "float2nr(&columns*0.4)",
+          previewRow: "float2nr(&lines*0.1)+float2nr(&lines*0.8)",
+          previewCol: "float2nr(&columns*0.5)+1",
         } as Partial<FilerParams>,
       },
       sourceOptions: {

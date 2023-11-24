@@ -18,15 +18,6 @@ nnoremap ss
       \ <CR>
 nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>
-nnoremap / <Cmd>Ddu
-      \ -name=search line -resume=v:false
-      \ -ui-param-ff-startFilter=v:true
-      \ <CR>
-nnoremap * <Cmd>Ddu
-      \ -name=search line -resume=v:false
-      \ -input=`expand('<cword>')`
-      \ -ui-param-ff-startFilter=v:false
-      \ <CR>
 nnoremap ;g <Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ff-ignoreEmpty
@@ -42,10 +33,6 @@ nnoremap ;f <Cmd>Ddu
       \ -ui-param-ff-ignoreEmpty
       \ -source-param-rg-input='`'Pattern: '->input('<cword>'->expand())`'
       \ -source-option-rg-path='`'Directory: '->input($'{getcwd()}/', 'dir')`'
-      \ <CR>
-nnoremap n <Cmd>Ddu
-      \ -name=search -resume
-      \ -ui-param-ff-startFilter=v:false
       \ <CR>
 nnoremap ;r <Cmd>Ddu
       \ -name=register register
@@ -110,7 +97,6 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
       \ })<CR><Cmd>call setcmdline('')<CR><CR>
 
 " Initialize ddu.vim lazily.
-if !('g:shougo_s_github_load_state'->exists())
   call timer_start(10, { _ ->
         \   ddu#load('ui', ['ff'])
         \ })
@@ -130,9 +116,8 @@ if !('g:shougo_s_github_load_state'->exists())
   call timer_start(10, { _ ->
         \   ddu#load('kind', ['file'])
         \ })
-endif
 " }}}
 
 " hook_source = {{{
-call ddu#custom#load_config(expand('$HOOKS_DIR/ddu.ts'))
+call ddu#custom#load_config(expand('$HOOKS_DIR/ddu/ddu.ts'))
 " }}}

@@ -11,4 +11,7 @@ endtry
 autocmd FocusGained * call system('fcitx5-remote -c &')
 autocmd FocusLost,VimLeave * call system('fcitx5-remote -o &')
 
-autocmd TermOpen * call rc_termmap#termmap()
+autocmd TermOpen * call vimrc#termmap()
+
+autocmd BufReadPre,BufNew * ++once filetype plugin indent on
+autocmd BufReadPre,BufNew * ++once syntax enable

@@ -6,7 +6,7 @@ nnoremap <Space>f <Cmd>Ddu
 " }}}
 
 " hook_source {{{
-autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
+autocmd TabEnter,WinEnter,CursorHold,FocusGained *
       \ call ddu#ui#do_action('checkItems')
 " }}}
 

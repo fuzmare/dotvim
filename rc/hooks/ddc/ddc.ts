@@ -108,7 +108,7 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
-        zsh: {
+        "shell-native": {
           mark: "zsh",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
@@ -136,6 +136,9 @@ export class Config extends BaseConfig {
         file: {
           filenameChars: "[:keyword:].",
         },
+        "shell-native": {
+          shell: 'zsh',
+        }
       },
     });
 
@@ -163,25 +166,16 @@ export class Config extends BaseConfig {
       });
     }
 
-    for (const filetype of ["zsh", "sh", "bash"]) {
+    for (const filetype of ["shell-native", "sh", "bash"]) {
       args.contextBuilder.patchFiletype(filetype, {
         sourceOptions: {
           _: {
             keywordPattern: "[0-9a-zA-Z_./#:-]*",
           },
         },
-        sources: [hasWindows ? "shell" : "zsh", "around"],
+        sources: [hasWindows ? "shell" : "shell-native", "around"],
       });
     }
-    args.contextBuilder.patchFiletype("deol", {
-      specialBufferCompletion: true,
-      sources: [hasWindows ? "shell" : "zsh", "shell-history", "around"],
-      sourceOptions: {
-        _: {
-          keywordPattern: "[0-9a-zA-Z_./#:-]*",
-        },
-      },
-    });
 
     args.contextBuilder.patchFiletype("ddu-ff-filter", {
       sources: ["line", "buffer"],

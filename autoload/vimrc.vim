@@ -1,4 +1,20 @@
-function! rc_termmap#termmap() abort
+function! vimrc#bw() abort
+  while match($BW_SESSION, '\(==\)$') != 86
+    let $BW_SESSION = system('$HOME/.local/share/rtx/installs/bitwarden/latest/bin/bw unlock --raw ' . inputsecret('bw password: '))
+  endwhile
+endfunction
+
+function! vimrc#dein_update() abort
+  call vimrc#bw()
+  let g:dein#install_github_api_token = system('$HOME/.local/share/rtx/installs/bitwarden/latest/bin/bw get notes dein_token')
+  call dein#check_update(v:true)
+endfunction
+
+function! vimrc#datetime() abort
+  return system("date '+%Y-%m-%dT%H:%M:%S'")
+endfunction
+
+function! vimrc#termmap() abort
   "tnoremap <ESC> <c-\><c-n><Plug>(esc)
   "nnoremap <Plug>(esc)<ESC> i<ESC>
   tnoremap <C-W>n       <cmd>new<cr>

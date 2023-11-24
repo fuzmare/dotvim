@@ -2,7 +2,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'ddc-ui-pum']
-hooks_file = '$HOOKS_DIR/ddc.vim'
+hooks_file = '$HOOKS_DIR/ddc/ddc.vim'
 # }}}
 # ddc-ui-pum {{{
 [[plugins]]
@@ -18,12 +18,13 @@ repo = 'Shougo/pum.vim'
 hook_source = '''
 call pum#set_option('border', 'single')
 call pum#set_option('use_complete', v:true)
-call pum#set_option('scrollbar_char','')
+call pum#set_option('scrollbar_char','┃')
+call pum#set_option('max_height', 10)
 '''
 # }}}
 # ddc sources {{{
-# around buffer necovim nvim-lua cmdline codeium input line mocword nvim-lsp rtags file cmdline-history shell zsh rg skkeleton
-# necovim nvim-lua codeium line rtags shell-history zsh skkeleton
+# around buffer necovim nvim-lua cmdline codeium input line mocword nvim-lsp rtags file cmdline-history shell shell-native rg skkeleton
+# necovim nvim-lua codeium line rtags shell-history shell-native skkeleton
 [[plugins]]
 repo = 'Shougo/ddc-around'
 
@@ -49,6 +50,12 @@ repo = 'uga-rosa/ddc-source-nvim-lua'
 repo = 'Shougo/ddc-source-codeium'
 
 [[plugins]]
+repo = 'Exafunction/codeium.vim'
+on_event = 'InsertEnter'
+on_cmd = ['Codeium']
+hooks_file = '$HOOKS_DIR/ddc/codeium.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-source-line'
 
 [[plugins]]
@@ -56,7 +63,7 @@ repo = 'Shougo/ddc-source-rtags'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
-repo = 'Shougo/ddc-source-zsh'
+repo = 'Shougo/ddc-source-shell-native'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-file'

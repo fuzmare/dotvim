@@ -1,0 +1,12 @@
+{
+  "set text": {
+    "prefix": "set text",
+    "body": [
+      "#set text(",
+      "  font: (\"linux libertine\",\"IPAexMincho\"),",
+      "  size: 14pt",
+      ")"
+    ],
+    "description": "set text"
+  }
+}

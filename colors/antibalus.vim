@@ -382,3 +382,6 @@ function! s:ModeCursorLineNr()
 endfunction
 
 autocmd ModeChanged * call s:ModeCursorLineNr()
+
+call s:hi('IblIndent', s:palette.g2, s:palette.none)
+call s:hi('IblScope', s:palette.m, s:palette.none)

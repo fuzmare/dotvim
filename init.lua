@@ -27,10 +27,9 @@ local toml_dir = vim.env.BASE_DIR .. "/toml/"
 local dein_tomls = {
   "dein.toml",
   "ddc.toml",
-
+  "ddu.toml",
 }
 local lazy_tomls = {
-  "ddu.toml",
   "skkeleton.toml",
   "git.toml",
   "lazy.toml",
@@ -83,5 +82,5 @@ if vim.env.plug_dev ~= nil then
 end
 
 require('user.nodefaultplugs')
-vim.cmd[[filetype plugin indent on]]
-vim.cmd[[syntax enable]]
+vim.cmd[[filetype off]]
+vim.cmd[[syntax off]]
